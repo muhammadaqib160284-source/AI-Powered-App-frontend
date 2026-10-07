@@ -1,0 +1,39 @@
+{
+  "summary": "Frontend-only Playwright testing of Candor SaaS. Mocked entire external backend (https://api.candor-mock.test) using page.route with CORS headers. Covered landing page, theme toggle, context switcher (ADMIN/HR/VIEWER), RBAC nav + routes, interview list/detail/search/filter/error+retry, create interview payload shape, resume upload validation + success + multipart + no tenant header, invitations accept (no tenant), personal interview room start-session, pricing plans. All 52 assertions passed across two test runs (36 in run 1 after fixing 2 test-script issues, 16 in run 2).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": ["/app/test_reports/iteration_1.json"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "No functional issues found. Code is well-structured: fieldMap.js centralizes payload shapes, client.js interceptor correctly conditionally attaches X-Tenant-ID only for /organization routes and respects skipTenant for /organization/invitation/accept.",
+    "RequirePermission + role gating via permissions.js correctly hides nav + enforces access-restricted on direct URL access for VIEWER.",
+    "React Query retries on 5xx cause ~6-8s delay before error state visible on list; consider lowering retry count or adding earlier loading indicator for better UX. Not a bug.",
+    "Pricing plan names in landing are individual/team/enterprise (correct)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (no backend)", "frontend": "100% (52/52 assertions)"},
+  "test_credentials": "None - dev session hardcoded via /app/frontend/src/config/devSession.js (token: dev-access-token-replace-me)",
+  "seed_data_creation": "All data mocked inline via Playwright page.route. No persistent seed data.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "App has NO backend; all API calls hit https://api.candor-mock.test which is unresolvable. Any Playwright test MUST mock via page.route with CORS headers (Allow-Origin:*, Allow-Headers:*, Expose-Headers:ETag) and respond 204 to OPTIONS. Verified contract: /organization/* calls include X-Tenant-ID = active orgId, /user/* calls do NOT, /organization/invitation/accept does NOT (uses skipTenant). Every call includes Authorization: Bearer dev-access-token-replace-me. Create-interview payload for org has exactly {title,description,skills,candidateEmail,companyName,role}; personal omits candidateEmail. React Query retries 5xx twice (~6-8s) before showing error state - wait >=7s for error retry button to appear. Resume file input is hidden (set_input_files works directly without wait_for_selector visible). Pricing plans ids: individual/team/enterprise (not 'starter'). Video multipart upload (uploadVideoMultipart) was NOT exercised through full E2E but code is in /app/frontend/src/lib/videoUpload.js and uses /interview/upload/start, /interview/video/sign-url, PUT to signed URLs expecting ETag header, /interview/upload/complete with parts [{PartNumber,ETag}].",
+  "tested_flows": [
+    "Landing: hero, product preview, usecase tabs (org/individual), FAQ accordion, footer, theme toggle (dark<->light persisted), pricing plans",
+    "Open app -> /app/personal redirect",
+    "Context switcher lists Individual + 3 orgs; switching updates URL, sidebar nav, topbar-context-name",
+    "ADMIN (Acme) nav: Overview, Interviews, New interview, Workspaces, Team",
+    "HR (Startup XYZ) nav: no team, workspaces visible but no open-create-workspace-button",
+    "VIEWER (Company ABC) nav: Overview, Interviews only; direct URL /interviews/new and /team show access-restricted; detail shows read-only-indicator and no open-interview-room-button",
+    "Interviews list: GET /organization/interviews returns array, auto-selects first on desktop (?i=slug), detail GET /organization/interview/:slug fires on select, search filters, status filter works",
+    "Error state: 500 on list shows retry button; retry recovers",
+    "Create interview (ADMIN): empty submit shows 6 validation errors; filled form POSTs /organization/interview with EXACT fields {title,description,skills,candidateEmail,companyName,role}; interview-created-card shown",
+    "Resume (/app/personal/resume): rejects .txt and >5MB with resume-validation-error; valid PDF uploads multipart/form-data to /user/resume/upload with Bearer token and NO X-Tenant-ID; resume-upload-success shown",
+    "Interview room (/app/personal/interviews/iv-1/room): realtime-boundary visible; start-session-button POSTs /user/interview/session with no tenant header",
+    "Invitations: POST /organization/invitation/accept has Bearer but NO X-Tenant-ID",
+    "No requests to /login, /signup, /logout, /refresh"
+  ]
+}
