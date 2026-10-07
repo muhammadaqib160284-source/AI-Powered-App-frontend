@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 210 40% 98%;
+        --foreground: 222 47% 11%;
+        --card: 0 0% 100%;
+        --card-foreground: 222 47% 11%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 222 47% 11%;
+        --primary: 243 75% 59%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 210 40% 96%;
+        --secondary-foreground: 222 47% 11%;
+        --muted: 210 40% 96%;
+        --muted-foreground: 215 16% 42%;
+        --accent: 214 32% 94%;
+        --accent-foreground: 222 47% 11%;
+        --destructive: 347 77% 50%;
+        --destructive-foreground: 0 0% 100%;
+        --success: 161 94% 30%;
+        --warning: 32 95% 44%;
+        --info: 221 83% 53%;
+        --border: 214 32% 90%;
+        --input: 214 32% 88%;
+        --ring: 243 75% 59%;
+        --sidebar: 210 40% 96.5%;
+        --radius: 0.5rem;
+    }
+    .dark {
+        --background: 240 10% 3.9%;
+        --foreground: 240 5% 96%;
+        --card: 240 8% 7.5%;
+        --card-foreground: 240 5% 96%;
+        --popover: 240 8% 8%;
+        --popover-foreground: 240 5% 96%;
+        --primary: 239 84% 67%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 240 5% 12%;
+        --secondary-foreground: 240 5% 96%;
+        --muted: 240 5% 11%;
+        --muted-foreground: 240 5% 62%;
+        --accent: 240 5% 13%;
+        --accent-foreground: 240 5% 96%;
+        --destructive: 350 89% 60%;
+        --destructive-foreground: 0 0% 100%;
+        --success: 160 84% 39%;
+        --warning: 38 92% 50%;
+        --info: 217 91% 60%;
+        --border: 240 4% 15%;
+        --input: 240 4% 18%;
+        --ring: 239 84% 67%;
+        --sidebar: 240 9% 5.5%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        @apply bg-background text-foreground antialiased;
+        font-family: "Plus Jakarta Sans", ui-sans-serif, sans-serif;
+        font-feature-settings: "ss01", "cv11";
+    }
+    h1, h2, h3, h4 {
+        letter-spacing: -0.02em;
+    }
+    code, .font-mono {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+    }
+    ::selection {
+        background: hsl(var(--primary) / 0.3);
+    }
+}
+
+@layer utilities {
+    .eyebrow {
+        @apply text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground;
+    }
+    .fade-up {
+        animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .grid-bg {
+        background-image: linear-gradient(hsl(var(--border) / 0.5) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--border) / 0.5) 1px, transparent 1px);
+        background-size: 48px 48px;
+        mask-image: radial-gradient(ellipse at top, black 20%, transparent 70%);
+    }
+}
+
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fade-up { animation: none; }
+}
+
+@layer base {
+    [data-debug-wrapper="true"] {
+        display: contents !important;
+    }
+
+    [data-debug-wrapper="true"] > * {
+        margin-left: inherit;
+        margin-right: inherit;
+        margin-top: inherit;
+        margin-bottom: inherit;
+        padding-left: inherit;
+        padding-right: inherit;
+        padding-top: inherit;
+        padding-bottom: inherit;
+        column-gap: inherit;
+        row-gap: inherit;
+        gap: inherit;
+        border-left-width: inherit;
+        border-right-width: inherit;
+        border-top-width: inherit;
+        border-bottom-width: inherit;
+        border-left-style: inherit;
+        border-right-style: inherit;
+        border-top-style: inherit;
+        border-bottom-style: inherit;
+        border-left-color: inherit;
+        border-right-color: inherit;
+        border-top-color: inherit;
+        border-bottom-color: inherit;
+    }
+}

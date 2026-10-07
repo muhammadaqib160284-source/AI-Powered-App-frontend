@@ -1,0 +1,205 @@
+{
+  "project_name": "AI Interview SaaS Platform",
+  "theme_strategy": {
+    "default_mode": "dark",
+    "mode_toggle_supported": true,
+    "description": "Modern dark-first SaaS aesthetic with seamless light-mode toggle. Crisp dark obsidian (#09090B) for dark mode and clean slate (#F8FAFC) for light mode. Sharp typography, generous padding, subtle 1px borders, zero AI-slop gradients, high-density data views for dashboards."
+  },
+  "colors": {
+    "dark_mode": {
+      "background": "#09090b",
+      "card_surface": "#121215",
+      "card_surface_hover": "#1a1a1e",
+      "sidebar_bg": "#0d0d10",
+      "border": "#27272a",
+      "border_subtle": "#1f1f23",
+      "text_primary": "#f4f4f5",
+      "text_secondary": "#a1a1aa",
+      "text_muted": "#71717a",
+      "primary_accent": "#6366f1",
+      "primary_hover": "#4f46e5",
+      "primary_alpha": "rgba(99, 102, 241, 0.15)",
+      "success": "#10b981",
+      "success_bg": "rgba(16, 185, 129, 0.12)",
+      "warning": "#f59e0b",
+      "warning_bg": "rgba(245, 158, 11, 0.12)",
+      "destructive": "#f43f5e",
+      "destructive_bg": "rgba(244, 63, 94, 0.12)",
+      "info": "#3b82f6",
+      "info_bg": "rgba(59, 130, 246, 0.12)"
+    },
+    "light_mode": {
+      "background": "#f8fafc",
+      "card_surface": "#ffffff",
+      "card_surface_hover": "#f1f5f9",
+      "sidebar_bg": "#f1f5f9",
+      "border": "#e2e8f0",
+      "border_subtle": "#f1f5f9",
+      "text_primary": "#0f172a",
+      "text_secondary": "#475569",
+      "text_muted": "#94a3b8",
+      "primary_accent": "#4f46e5",
+      "primary_hover": "#4338ca",
+      "primary_alpha": "rgba(79, 70, 229, 0.1)",
+      "success": "#059669",
+      "success_bg": "#ecfdf5",
+      "warning": "#d97706",
+      "warning_bg": "#fffbeb",
+      "destructive": "#e11d48",
+      "destructive_bg": "#fff1f2",
+      "info": "#2563eb",
+      "info_bg": "#eff6ff"
+    },
+    "forbidden_colors": [
+      "#7351B7",
+      "#1B93A4"
+    ]
+  },
+  "typography": {
+    "font_families": {
+      "heading": "Plus Jakarta Sans, Outfit, sans-serif",
+      "body": "Plus Jakarta Sans, Inter, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "forbidden_heading_fonts": [
+      "Inter",
+      "Roboto",
+      "Open Sans",
+      "Space Grotesk"
+    ],
+    "scale": {
+      "hero_title": "text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight",
+      "section_heading": "text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight",
+      "subsection_heading": "text-xl sm:text-2xl font-semibold tracking-tight",
+      "card_heading": "text-lg sm:text-xl font-semibold",
+      "body_base": "text-sm sm:text-base leading-relaxed",
+      "body_small": "text-xs sm:text-sm text-muted-foreground",
+      "overline_label": "text-xs font-semibold uppercase tracking-[0.15em]"
+    }
+  },
+  "layout_architecture": {
+    "landing_page": {
+      "route": "/",
+      "sections": [
+        "Navigation Header with Logo, Navigation Links (Features, Use Cases, Pricing, FAQ), Theme Toggle, App CTA",
+        "Hero Section with dynamic headline, value prop, CTA buttons (Start Free, Book Demo), social proof badges",
+        "Interactive Dashboard Preview Mockup with realistic candidate evaluation metrics",
+        "How It Works (3-step visual narrative: Configure Role -> AI Interview Execution -> Automated Scoring & Insights)",
+        "Core Features Grid (Asymmetric Bento Grid with AI voice synthesis, skill matrices, bias reduction, live transcripts)",
+        "Individual Candidates vs Organization / Recruiters Split Showcase Tabs",
+        "Pricing Tier Cards (Free, Pro, Enterprise with monthly/annual billing toggle)",
+        "Interactive FAQ Accordion",
+        "Footer with navigation columns, compliance badge, system status indicator"
+      ]
+    },
+    "app_shell": {
+      "route": "/app",
+      "header": {
+        "left": "Brand Logo + Mobile Drawer Toggle + Breadcrumb Context",
+        "right": "Theme Toggle (Light/Dark) + Notifications Popover + Context Switcher Avatar Menu"
+      },
+      "context_switcher": {
+        "location": "Top-right avatar dropdown",
+        "items": [
+          "Individual Profile Context (Personal Workspace)",
+          "Organization Workspaces List with Role Badges (e.g. Acme Corp [ADMIN], TechScale Inc [HR], Global HR [VIEWER])",
+          "Create New Organization CTA",
+          "User Profile Settings & Logout"
+        ]
+      },
+      "sidebar": {
+        "organization_context_links": [
+          "Dashboard Overview",
+          "Interviews (Master-Detail)",
+          "Workspaces",
+          "Invitations & Members (RBAC actions)",
+          "Settings"
+        ],
+        "individual_context_links": [
+          "My Interviews",
+          "Resume Scanner & Upload",
+          "Workspaces",
+          "Practice History"
+        ]
+      }
+    },
+    "interviews_master_detail": {
+      "container": "h-[calc(100vh-4rem)] grid grid-cols-1 lg:grid-cols-12 gap-0 overflow-hidden border-t border-border",
+      "left_list_pane": "lg:col-span-4 xl:col-span-4 border-r border-border h-full flex flex-col bg-background/50",
+      "left_list_controls": "p-4 border-b border-border space-y-3 (Search input + Status filter pills: All, Scheduled, Completed, Pending)",
+      "left_list_items": "flex-1 overflow-y-auto divide-y divide-border/40 p-2 space-y-1",
+      "right_detail_pane": "lg:col-span-8 xl:col-span-8 h-full flex flex-col bg-card/20 overflow-y-auto p-6 space-y-6",
+      "right_detail_sections": [
+        "Candidate Header (Name, Email, Application Status Pill, Date, Interview Link with Copy Button)",
+        "Role Details (Job Title, Department, Target Skills Badges, Experience Level)",
+        "Interview Metadata & Instructions Card",
+        "RBAC Action Bar (ADMIN/HR: Edit Interview, Cancel Interview, Re-invite Candidate, Delete; VIEWER: Read-only notice)"
+      ]
+    },
+    "resume_upload_zone": {
+      "max_size": "5MB",
+      "accepted_formats": [".pdf", ".docx"],
+      "states": ["idle_dragzone", "drag_over", "uploading_progress", "success_state", "validation_error_state"],
+      "features": "Drag and drop container with dotted animated border, clear size limit note, file validation check, file size format display, cancel/replace action"
+    },
+    "interview_room_placeholder": {
+      "route": "/app/interview/:id",
+      "concept": "WebRTC Integration Boundary / Placeholder",
+      "elements": [
+        "Status Header: Interview Title, Live Timer, Connection Status Indicator",
+        "Split Video Feed Viewport (Left: AI Avatar/Interviewer Placeholder, Right: Candidate Camera Preview)",
+        "WebRTC Boundary Notice Banner: 'Interview room boundary placeholder ready for WebRTC media stream connection'",
+        "Controls Bar: Microphone Toggle (mock), Camera Toggle (mock), Screen Share (mock), End Interview CTA",
+        "Live Audio Waveform Simulation / AI Transcript Sidebar Placeholder"
+      ]
+    }
+  },
+  "image_urls": {
+    "avatars": [
+      {
+        "url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+        "category": "candidate_avatar_woman"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+        "category": "candidate_avatar_man"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+        "category": "recruiter_avatar_woman"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+        "category": "recruiter_avatar_man"
+      }
+    ],
+    "dashboard_previews": [
+      {
+        "url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&w=1200&q=85",
+        "category": "hero_dashboard_analytics"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?crop=entropy&cs=srgb&fm=jpg&w=1200&q=85",
+        "category": "feature_dashboard_monitoring"
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "1. Ensure React component files use .js extension as per existing project structure.",
+    "2. Implement a theme provider / toggle hook that manages 'dark' class on <html> or <body> element and stores preference in localStorage.",
+    "3. Apply crisp data-testid attributes (kebab-case) to all interactive elements, inputs, buttons, context switcher items, tab triggers, filter buttons, and table rows.",
+    "4. Ensure Master-Detail view in Org Interviews renders a responsive 2-column pane on desktop (left list, right detail) and single pane collapsible view on mobile.",
+    "5. Enforce RBAC rules visually in the interview detail view: ADMIN/HR can perform actions (Edit, Re-invite, Cancel, Delete); VIEWER role sees action buttons disabled or hidden with an informative RBAC tooltip/badge.",
+    "6. Build the Resume Upload dropzone with full 5MB validation, drop effect, upload progress skeleton/animation, and error feedback when non-PDF or >5MB files are dropped.",
+    "7. Build the Interview Room page at '/app/interview/:id' as a clean WebRTC boundary placeholder with media controls bar and clear notice banner.",
+    "8. Strictly avoid prohibited colors (#7351B7 and #1B93A4) and prohibited heading fonts (Inter for headers)."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Avoid generic AI template looks. Use high-density, sharp-bordered, beautifully spaced cards and lists.",
+    "Never center-align the app container or main content globally.",
+    "All interactive elements MUST have data-testid attributes for automated testing.",
+    "Do not use full transparent backgrounds in headers, popovers, or dropdowns. Always use semi-opaque background with backdrop-blur.",
+    "Use Lucide React icons for clean, consistent iconography throughout the application.",
+    "Use Sonner for toast notifications (located in /app/frontend/src/components/ui/sonner.js or similar)."
+  ]
+}
